@@ -3,6 +3,7 @@ add_library(moonfly SHARED
 )
 
 target_link_libraries(moonfly PRIVATE SDL3::SDL3-static)
+target_link_libraries(moonfly PRIVATE moonlight-common-c)
 
 # Include the library's public headers
 target_include_directories(moonfly PUBLIC
