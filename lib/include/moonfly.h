@@ -6,5 +6,5 @@
 #define MOONFLY_API 
 #endif
 
-MOONFLY_API void MoonflyInit();
+MOONFLY_API bool MoonflyInit();
 MOONFLY_API void MoonflyClose();

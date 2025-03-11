@@ -1,6 +1,8 @@
-add_library(moonfly STATIC
+add_library(moonfly SHARED
             src/moonfly.cpp
 )
+
+target_link_libraries(moonfly PRIVATE SDL3::SDL3-static)
 
 # Include the library's public headers
 target_include_directories(moonfly PUBLIC
