@@ -7,6 +7,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Set options for static
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(SDL_STATIC ON)
+
 # Add the lib directory as a subdirectory
+add_subdirectory(third_party/SDL3)
 add_subdirectory(lib)
 add_subdirectory(example)

@@ -1,12 +1,16 @@
 #include <moonfly.h>
-#include <iostream>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
 
-void MoonflyInit()
+bool MoonflyInit()
 {
-    std::cout << "Init" << std::endl;
+    SDL_SetMainReady();
+    const bool is_initialized = SDL_Init(SDL_INIT_VIDEO | 
+                                         SDL_INIT_AUDIO);
+    return is_initialized;
 }
 
 void MoonflyClose()
 {
-    std::cout << "Close" << std::endl;
+    SDL_Quit();
 }
