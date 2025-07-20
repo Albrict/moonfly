@@ -1,9 +1,11 @@
 add_library(moonfly SHARED
-            src/moonfly.cpp
+            src/moonfly.c
+            src/network.c
 )
 
 target_link_libraries(moonfly PRIVATE SDL3::SDL3-static)
 target_link_libraries(moonfly PRIVATE moonlight-common-c)
+target_link_libraries(moonfly PRIVATE libcurl)
 
 # Include the library's public headers
 target_include_directories(moonfly PUBLIC
@@ -11,18 +13,15 @@ target_include_directories(moonfly PUBLIC
     $<INSTALL_INTERFACE:include>
 )
 
-# Set properties for the library
-target_compile_features(moonfly PUBLIC cxx_std_17)  # Require C++17
-
 # Add compiler warnings
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
     # GCC/Clang warnings
     target_compile_options(moonfly PRIVATE
         -Wall
         -Wextra
         -Wpedantic
     )
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     # MSVC warnings
     target_compile_options(moonfly PRIVATE
         /W4  # Enable all warnings
@@ -31,13 +30,13 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 endif()
 
 # Debug flags
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
     # GCC/Clang debug flags
     target_compile_options(moonfly PRIVATE
         $<$<CONFIG:Debug>:-g3>  # Debug symbols
         $<$<CONFIG:Debug>:-O0>  # Disable optimizations in Debug mode
     )
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     # MSVC debug flags
     target_compile_options(moonfly PRIVATE
         $<$<CONFIG:Debug>:/Zi>  # Debug symbols
